@@ -42,6 +42,10 @@ INSTALLED_APPS = [
     'core.user',
     'core.auth',
     'core.chat',
+    # third-party 
+    'rest_framework',
+    'drf_spectacular',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -79,8 +83,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'rag_chat_db',
+        'USER': 'chat_doc_role',
+        'PASSWORD': 'pass123',
+        'HOST': 'localhost',  # or IP, e.g., '127.0.0.1' or cloud DB host
+        'PORT': '5432',       # default PostgreSQL port
     }
 }
 
@@ -125,3 +133,36 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = "core_user.CustomUser"
+
+
+# DRF
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    # 'DEFAULT_FILTER_BACKENDS':
+    #     ['django_filters.rest_framework.DjangoFilterBackend'],
+    # 'DEFAULT_PAGINATION_CLASS':
+    #     'rest_framework.pagination.LimitOffsetPagination',
+    # 'PAGE_SIZE': 15,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'APIs for RAG-doc-chat Project',
+    'DESCRIPTION': '''
+        The RAG-doc-chat project is a document-driven chatbot system that enables users to upload documents (PDF, DOCX, TXT) or provide URLs, and interact with the content through conversational AI. This API backend provides endpoints for:
+
+        - User authentication and profile management
+        - Secure document and website ingestion
+        - Chat interface for querying over documents using Retrieval-Augmented Generation (RAG)
+        - Persistent chat history stored in PostgreSQL
+        - Integration with LangGraph and LLMs for intelligent agent behavior
+
+        Built using Django REST Framework, the project is production-ready with JWT authentication, PostgreSQL support, and Dockerized deployment.
+        ''',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
