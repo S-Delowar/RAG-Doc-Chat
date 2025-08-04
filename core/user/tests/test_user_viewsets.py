@@ -4,6 +4,11 @@ from rest_framework.test import APIClient
 from rest_framework import status
 from core.user.models import CustomUser
 
+
+# -------------------------
+# Fixtures
+# -------------------------
+
 @pytest.fixture
 def user(db):
     return CustomUser.objects.create_user(
@@ -19,6 +24,11 @@ def auth_client(user):
     client = APIClient()
     client.force_authenticate(user=user)
     return client
+
+
+# -------------------------
+# UserViewSet Tests
+# -------------------------
 
 @pytest.mark.django_db
 def test_get_authenticated_user_profile(auth_client, user):
