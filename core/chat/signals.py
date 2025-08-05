@@ -2,7 +2,7 @@ from django.db.models.signals import pre_delete, post_save
 from django.dispatch import receiver
 
 from core.chat.models.document import Document
-from core.chat.rag.document.ingest import ingest_to_chroma
+from core.chat.ai_agent.document.ingest import ingest_to_chroma
 
 
 @receiver(pre_delete, sender=Document)

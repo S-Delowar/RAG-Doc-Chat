@@ -1,11 +1,5 @@
-
-from langchain.chat_models import init_chat_model
 from langchain_huggingface import HuggingFaceEmbeddings
-
-
-def get_llm():
-    llm = init_chat_model("gpt-4o-mini", model_provider="openai")
-    return llm
+from core.chat.ai_agent.constants import EMBEDDING_MODEL_NAME
 
 
 def get_embedder():

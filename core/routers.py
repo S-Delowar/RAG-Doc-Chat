@@ -3,7 +3,9 @@ from rest_framework import routers
 from core.auth.viewsets.login import LoginViewSet
 from core.auth.viewsets.refresh import RefreshViewSet
 from core.auth.viewsets.register import RegisterViewSet
-from core.chat.viewsets.chat_session import ChatMessageViewSet, ChatSessionViewSet, DocumentViewSet
+from core.chat.viewsets.chat_message import ChatMessageViewSet
+from core.chat.viewsets.chat_session import ChatSessionViewSet
+from core.chat.viewsets.document import DocumentViewSet
 from core.user.viewsets import UserViewSet
 
 router = routers.SimpleRouter()

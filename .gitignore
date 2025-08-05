@@ -9,7 +9,7 @@ __pycache__/
 
 # local vectordb persist folder
 chroma_db/
-
+media/
 # Distribution / packaging
 .Python
 build/

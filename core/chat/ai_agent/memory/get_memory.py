@@ -12,5 +12,5 @@ def get_memory_context(session):
     )
     
     recent_history = "\n".join([f"{m.sender}: {m.content}" for m in recent_msgs])
-    return f"Summary:\n{summary}\n\nRecent:\n{recent_history}"
+    return f"Summary of previous chat history:\n{summary}\n\nRecent:\n{recent_history}"
         
