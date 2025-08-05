@@ -40,5 +40,6 @@ def web_search_tool(state:AgentState):
         Now generate a clear, concise and helpful answer.
     """
     
-    response = llm.invoke(prompt)
+    response = llm.invoke(prompt).content.strip()
+    
     return {"response": response}

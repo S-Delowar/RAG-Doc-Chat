@@ -8,7 +8,7 @@ def get_memory_context(session):
         summary = ""
         
     recent_msgs = (
-        ChatMessage.objects.filter(session=session).order_by('-timestamp')[:10].reverse()
+        ChatMessage.objects.filter(session=session).order_by('-timestamp')[:10][::-1]
     )
     
     recent_history = "\n".join([f"{m.sender}: {m.content}" for m in recent_msgs])

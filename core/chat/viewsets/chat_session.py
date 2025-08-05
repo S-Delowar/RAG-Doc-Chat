@@ -62,7 +62,7 @@ class ChatSessionViewSet(viewsets.ModelViewSet):
 
         # Periodic memory summarization (every 10 messages)
         try:
-            if ChatMessage.objects.filter(session=chat_session).count() % 10 == 0:
+            if ChatMessage.objects.filter(session=chat_session).count() > 35:
                 run_memory_summarization.delay(chat_session.id)
         except Exception as e:
             print(f"Error during memory summarization: {str(e)}")

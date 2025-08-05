@@ -8,5 +8,6 @@ class AgentState(TypedDict, total=False):
     memory_context: str
     documents: List[str]
     rewritten_query: str
+    next_tool: str
     web_search_results: str
     response: str

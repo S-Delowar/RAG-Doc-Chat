@@ -17,12 +17,23 @@ def router_node(state:AgentState):
         Available tools:
         - direct_tool: Answer without retrieval if question is casual or simple.
         - qa_tool: Use if answering requires context from uploaded document.
-        - summary_tool: Use if the user asks to summarize a document or chat.
         - web_tool: Use if the question can't be answered from the document.
         
-        Return only one of: direct_tool, qa_tool, summary_tool, web_tool.
+        Return only one of: direct_tool, qa_tool, web_tool.
     """
     
-    tool = llm.invoke(prompt).strip().lower()
+    tool = llm.invoke(prompt).content.strip().lower()
     
-    return tool if tool in {"direct_tool", "qa_tool", "summary_tool", "web_tool"} else "direct_tool"
+    if tool not in {"direct_tool", "qa_tool", "web_tool"}:
+        tool = "direct_tool"
+
+    return {"next_tool": tool}
+
+
+
+def route_decision(state: AgentState):
+    return state["next_tool"]
+
+
+        # - summary_tool: Use if the user asks to summarize a document or chat.
+#

@@ -23,6 +23,6 @@ def qa_tool(state:AgentState):
         """
       
     llm = get_llm()  
-    response = llm.invoke(prompt)
+    response = llm.invoke(prompt).content.strip()
     
     return {"response": response}
