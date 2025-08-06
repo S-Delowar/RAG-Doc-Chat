@@ -33,7 +33,3 @@ def router_node(state:AgentState):
 
 def route_decision(state: AgentState):
     return state["next_tool"]
-
-
-        # - summary_tool: Use if the user asks to summarize a document or chat.
-#

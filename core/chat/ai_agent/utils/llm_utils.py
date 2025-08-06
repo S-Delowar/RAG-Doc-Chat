@@ -12,6 +12,5 @@ def get_llm():
         model_provider="openai",
         api_key=os.getenv("OPENAI_API_KEY")
         )
-    
     return llm
 

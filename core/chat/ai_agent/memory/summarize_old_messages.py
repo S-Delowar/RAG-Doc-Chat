@@ -1,10 +1,7 @@
 import os
+from core.chat.ai_agent.utils.llm_utils import get_llm
 from core.chat.models import ChatMemory, ChatMessage
-from  langchain_openai import ChatOpenAI
 from langchain_core.prompts import PromptTemplate
-
-from dotenv import load_dotenv
-load_dotenv()
 
 
 SUMMARY_PROMPT = PromptTemplate.from_template("""
@@ -25,13 +22,7 @@ def summarize_old_messages(session):
     old_messages = messages[:total-10]
     formatted = "\n".join([f"{m.sender}: {m.content}" for m in old_messages])
     
-    llm = ChatOpenAI(
-        model="gpt-3.5-turbo", 
-        temperature=0.2,
-        api_key=os.getenv("OPENAI_API_KEY")
-    )
-
-    
+    llm = get_llm()
     chain = SUMMARY_PROMPT | llm
     result = chain.invoke(({"chat_history": formatted}))
     summary = result.content.strip()

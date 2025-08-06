@@ -7,22 +7,20 @@ def qa_tool(state:AgentState):
     vectorstore = get_chroma_vectorstore(f"session_{state['session_id']}")
     docs = vectorstore.similarity_search(state["rewritten_query"])
     
-    if not docs:
-        return {"retrieval_status": "not_found"}
-    
-    context = "\n".join([doc.page_content for doc in docs])
-    prompt = f"""You are smart to answer a query. Generate answer to the query with related context.
-        User query:
-        {state["rewritten_query"]}
+    if docs:
+        context = "\n".join([doc.page_content for doc in docs])
+        prompt = f"""You are smart to answer a query. Generate answer to the query with related context.
+            User query:
+            {state["rewritten_query"]}
+            
+            Context:
+            {context}
+            
+            Previous chat history:
+                {state["memory_context"]}
+            """
         
-        Context:
-        {context}
+        llm = get_llm()  
+        response = llm.invoke(prompt).content.strip()
         
-        Previous chat history:
-            {state["memory_context"]}
-        """
-      
-    llm = get_llm()  
-    response = llm.invoke(prompt).content.strip()
-    
-    return {"response": response}
+        return {"response": response}
