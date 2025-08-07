@@ -24,7 +24,7 @@ jobs:
       DB_NAME: postgres
       DB_USER: postgres
       DB_PASSWORD: postgres
-      DB_HOST: postgres
+      DB_HOST: localhost
       DB_PORT: "5432"
       DEBUG: "TRUE"
       DJANGO_SECRET_KEY: testing-secret-key
