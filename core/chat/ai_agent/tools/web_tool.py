@@ -8,12 +8,13 @@ from core.chat.ai_agent.utils.llm_utils import get_llm
 load_dotenv()
 
 
-tavily_client = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
-llm = get_llm()
 
 def web_search_tool(state:AgentState):
     query = state["rewritten_query"]
     memory = state["memory_context"]
+    
+    llm = get_llm()
+    tavily_client = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
     
     results = tavily_client.search(query=query, max_results=2)
     

@@ -2,11 +2,12 @@ from core.chat.ai_agent.state import AgentState
 from core.chat.ai_agent.utils.llm_utils import get_llm
 
 
-llm = get_llm()
 
 def router_node(state:AgentState):
     query = state["rewritten_query"]
     memory = state["memory_context"]
+    
+    llm = get_llm()
     
     prompt = f"""
         You are a smart tool router.
