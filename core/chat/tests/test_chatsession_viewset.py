@@ -62,7 +62,7 @@ def test_upload_document(auth_client, chat_session):
 def test_get_message_response_success(auth_client, chat_session, monkeypatch):
     # Patch the AI function to return a dummy response instead of calling real LLM
     monkeypatch.setattr(
-        "core.chat.ai_agent.agent_runner.run_agent",
+        "core.chat.viewsets.chat_session.run_agent",
         lambda *args, **kwargs: "AI Response"
     )
     url = f"/api/sessions/{chat_session.id}/messages/"
