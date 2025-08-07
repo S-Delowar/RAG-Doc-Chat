@@ -14,16 +14,29 @@ jobs:
       postgres:
         image: postgres:16
         env:
-          POSTGRES_DB: test_db
-          POSTGRES_USER: test_user
-          POSTGRES_PASSWORD: test_pass
+          POSTGRES_DB: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         ports:
           - "5432:5432"
             
     env:
-      DATABASE_URL: postgres://test_user:test_pass@localhost:5432/test_db
+      DB_NAME: postgres
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_HOST: postgres
+      DB_PORT: "5432"
       DEBUG: "TRUE"
       DJANGO_SECRET_KEY: testing-secret-key
+      # Dummy API keys (so code doesn't break)
+      OPENAI_API_KEY: dummy
+      TAVILY_API_KEY: dummy
+      LANGSMITH_API_KEY: dummy
+      LANGCHAIN_PROJECT: dummy
+      LANGSMITH_TRACING: false
+      SUPERUSER_USERNAME: testadmin
+      SUPERUSER_EMAIL: test@admin.com
+      SUPERUSER_PASSWORD: test1234
 
     steps:
       - name: Checkout code
