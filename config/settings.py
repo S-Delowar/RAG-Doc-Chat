@@ -5,9 +5,7 @@ from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = ''
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", default='django-insecure-i^^%f-e@b-1^c=6st!hggpb9atsu7)u&fuyov!g_kw!+$=#6%b')
-
 
 DEBUG = True
 
@@ -32,6 +30,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'rest_framework_simplejwt',
     'django_celery_results',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -105,16 +104,6 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-# Media
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "core_user.CustomUser"
@@ -153,6 +142,44 @@ SPECTACULAR_SETTINGS = {
 }
 
 
-# Celery
+# Celery for background tasks
 CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_RESULT_BACKEND = "django-db"
+
+
+# Serving Static and Media files
+
+# static and media files
+if os.getenv('USE_S3') == 'TRUE':
+    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_S3_BUCKET_NAME')
+    AWS_S3_REGION_NAME = os.getenv('AWS_REGION')
+    
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    AWS_QUERYSTRING_AUTH = False
+    AWS_DEFAULT_ACL = None
+    
+    # Static and media URLs
+    STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
+    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
+
+    # # Set storage backends
+    STORAGES = {
+        "default": {
+            "BACKEND": "CoreRoot.storage_backends.MediaStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "CoreRoot.storage_backends.StaticStorage",
+        }
+    }
+else:
+    # Media files
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+    
+    # Static files (CSS, JavaScript, Images)
+    STATIC_URL = '/static/'
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
