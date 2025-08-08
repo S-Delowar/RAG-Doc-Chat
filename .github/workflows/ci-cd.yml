@@ -90,11 +90,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-<<<<<<< HEAD
-
-=======
         
->>>>>>> d13536d0172678018fdc423586e00fc77e7c0e2a
       - name: Copy docker-compose.yml
         uses: appleboy/scp-action@v0.1.3
         with:
