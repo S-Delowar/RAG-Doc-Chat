@@ -109,6 +109,8 @@ jobs:
           script: |
             cd /home/${{ secrets.AWS_EC2_USER }}/app 
 
+            echo "Creating .env file"
+
             cat <<EOF > .env
             OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
             TAVILY_API_KEY=${{ secrets.TAVILY_API_KEY }}
@@ -125,8 +127,9 @@ jobs:
             SUPERUSER_USERNAME=${{ secrets.SUPERUSER_USERNAME }}
             SUPERUSER_EMAIL=${{ secrets.SUPERUSER_EMAIL }}
             SUPERUSER_PASSWORD=${{ secrets.SUPERUSER_PASSWORD }}
-          EOF 
+            EOF 
 
+            echo "Pull docker image and run"
             docker pull ${{ secrets.DOCKER_IMAGE }}
             docker-compose down 
             docker-compose up -d
