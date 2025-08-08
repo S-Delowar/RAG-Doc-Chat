@@ -88,6 +88,9 @@ jobs:
     needs: docker
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
       - name: Copy docker-compose.yml
         uses: appleboy/scp-action@v0.1.3
         with:
