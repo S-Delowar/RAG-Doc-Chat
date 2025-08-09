@@ -3,7 +3,6 @@ from django.dispatch import receiver
 
 from core.chat.ai_agent.document.ingest_to_weaviate import ingest_to_weaviate
 from core.chat.models.document import Document
-from core.chat.ai_agent.document.ingest import ingest_to_chroma
 
 
 @receiver(pre_delete, sender=Document)
