@@ -3,7 +3,7 @@ version: "3.8"
 services:
   web:
     container_name: rag-doc-api
-    image: sdelowar2/rag-doc-api:latest
+    image: ${DOCKER_IMAGE}
     # build: .
     depends_on:
       - db
@@ -35,7 +35,7 @@ services:
 
   celery:
     container_name: rag-doc-celery
-    image: sdelowar2/rag-doc-api:latest
+    image: ${DOCKER_IMAGE}
     # build: .
     command: celery -A config worker --loglevel=info
     depends_on:

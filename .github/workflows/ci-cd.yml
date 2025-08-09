@@ -140,6 +140,7 @@ jobs:
             echo "AWS_S3_BUCKET_NAME=${{ secrets.AWS_S3_BUCKET_NAME }}" >> .env
             echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> .env
             echo "USE_S3=${{ secrets.USE_S3 }}" >> .env
+            echo "DOCKER_IMAGE=${{ secrets.DOCKER_IMAGE }}" >> .env
 
             echo "Pull docker image and run"
             docker pull ${{ secrets.DOCKER_IMAGE }}

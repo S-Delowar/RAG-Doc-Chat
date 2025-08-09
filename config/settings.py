@@ -165,10 +165,10 @@ if os.getenv('USE_S3') == 'TRUE':
     # # Set storage backends
     STORAGES = {
         "default": {
-            "BACKEND": "CoreRoot.storage_backends.MediaStorage",
+            "BACKEND": "config.storage_backends.MediaStorage",
         },
         "staticfiles": {
-            "BACKEND": "CoreRoot.storage_backends.StaticStorage",
+            "BACKEND": "config.storage_backends.StaticStorage",
         }
     }
 else:
