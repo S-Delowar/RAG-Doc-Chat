@@ -3,6 +3,8 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
+load_dotenv()
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", default='django-insecure-i^^%f-e@b-1^c=6st!hggpb9atsu7)u&fuyov!g_kw!+$=#6%b')
@@ -93,7 +95,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 LANGUAGE_CODE = 'en-us'
 
@@ -107,7 +108,6 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "core_user.CustomUser"
-
 
 # DRF
 REST_FRAMEWORK = {
@@ -123,7 +123,7 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
 }
 
-
+# Schema
 SPECTACULAR_SETTINGS = {
     'TITLE': 'APIs for RAG-doc-chat Project',
     'DESCRIPTION': '''
@@ -146,8 +146,6 @@ SPECTACULAR_SETTINGS = {
 CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_RESULT_BACKEND = "django-db"
 
-
-# Serving Static and Media files
 
 # static and media files
 if os.getenv('USE_S3') == 'TRUE':

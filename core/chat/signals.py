@@ -1,6 +1,7 @@
 from django.db.models.signals import pre_delete, post_save
 from django.dispatch import receiver
 
+from core.chat.ai_agent.document.ingest_to_weaviate import ingest_to_weaviate
 from core.chat.models.document import Document
 from core.chat.ai_agent.document.ingest import ingest_to_chroma
 
@@ -15,7 +16,7 @@ def delete_document_file_from_s3(sender, instance, **kwargs):
          
 
 @receiver(post_save, sender=Document)
-def handle_ingest_to_chromadb(sender, instance, created, **kwargs):
+def handle_ingest_to_weaviate(sender, instance, created, **kwargs):
     """
     Ingest document into Chroma DB after it's uploaded and saved.
     """
@@ -24,7 +25,7 @@ def handle_ingest_to_chromadb(sender, instance, created, **kwargs):
             # Local file path for Chroma ingestion
             file_path = instance.file.path
             session_id = str(instance.session.id)
-            ingest_to_chroma(session_id, file_path)
+            ingest_to_weaviate(session_id, file_path)
         except Exception as e:
             # Optional: log error or raise
-            print(f"Chroma ingestion failed: {e}")
+            print(f"Weaviate ingestion failed: {e}")
