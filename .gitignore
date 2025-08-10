@@ -10,6 +10,7 @@ __pycache__/
 # local vectordb persist folder
 chroma_db/
 media/
+docker-compose.dev.yml
 # Distribution / packaging
 .Python
 build/

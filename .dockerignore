@@ -1,0 +1,36 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.env
+
+# Test & cache directories
+.pytest_cache/
+.coverage
+*.cover
+
+# Local databases & data
+db.sqlite3
+chroma_db/
+
+# Git & CI/CD
+.git/
+.gitignore
+.github/
+
+# Media uploads (if not needed in build)
+media/
+
+# Docker files themselves
+docker-compose.yml
+docker-compose.dev.yml
+
+# Logs
+*.log
+
+# Other unnecessary files
+*.tmp
