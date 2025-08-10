@@ -20,6 +20,7 @@ def ingest_to_weaviate(session_id: str, file_field):
         # Download file from S3 or get local path
         tmp_path = _get_temp_file(file_field)
 
+        print(f"tmp path: {tmp_path}")
         # Load and Split
         docs = load_document(tmp_path)
         chunks = split_documents(docs)
@@ -42,6 +43,7 @@ def ingest_to_weaviate(session_id: str, file_field):
         if tmp_path and os.path.exists(tmp_path):
             try:
                 os.remove(tmp_path)
+                print("Removed tmp path")
             except PermissionError:
                 print(f"Warning: Could not delete temp file {tmp_path} (possibly still in use)")
 
