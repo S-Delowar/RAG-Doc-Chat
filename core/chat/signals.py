@@ -17,14 +17,11 @@ def delete_document_file_from_s3(sender, instance, **kwargs):
 @receiver(post_save, sender=Document)
 def handle_ingest_to_weaviate(sender, instance, created, **kwargs):
     """
-    Ingest document into Chroma DB after it's uploaded and saved.
+    Ingest document into Weaviate after it's uploaded and saved.
     """
     if created and instance.file:
         try:
-            # Local file path for Chroma ingestion
-            file_path = instance.file.path
             session_id = str(instance.session.id)
-            ingest_to_weaviate(session_id, file_path)
+            ingest_to_weaviate(session_id, instance.file)
         except Exception as e:
-            # Optional: log error or raise
             print(f"Weaviate ingestion failed: {e}")

@@ -23,7 +23,15 @@ def qa_tool(state: AgentState):
     if results.objects:
         context = "\n".join([obj.properties["content"] for obj in results.objects])
         prompt = f"""
-        You are smart to answer a query. Generate answer to the query with related context.
+        You are a helpful AI assistant. 
+        
+        Please answer the user query clearly and directly, using only the provided context.
+
+        Important:
+        - Do NOT add any prefixes, labels, greetings, or introductory words such as "AI:", "Answer:", "Response:", or anything similar.
+        - Do NOT say "Here is the answer", "AI says", or any other framing.
+        - ONLY provide the plain text answer, nothing else.
+            
         User query:
         {state["rewritten_query"]}
         
@@ -35,7 +43,10 @@ def qa_tool(state: AgentState):
         """
 
         llm = get_llm()
-        response = llm.invoke(prompt).content.strip()
-        return {"response": response}
-
-    return {"response": "No relevant documents found."}
+        response_text = llm.invoke(prompt).content.strip()
+        
+        for prefix in ("Answer:", "Response:", "AI:"):
+            if response_text.lower().startswith(prefix.lower()):
+                response_text = response_text[len(prefix):].strip()
+                
+        return {"response": response_text}
