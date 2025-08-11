@@ -78,7 +78,7 @@ This system enables **natural-language document** interaction powered by:
 4. **Celery background job**:
   - Summarizes chat history every 10 messages.
 
-## Installation & Setup
+## ⚙️ Installation & Setup
 ### 1. Prerequisites
 - Python 3.11+
 - An OpenAI API key
@@ -118,13 +118,14 @@ SUPERUSER_PASSWORD=super1234
 WEAVIATE_URL=your-weviate-cluster-url
 WEAVIATE_API_KEY=your-weaviate-api-key
 
-AWS_ACCESS_KEY_ID=aws-iam-user-access-key
-AWS_SECRET_ACCESS_KEY=aws-iam-user-secret-access-key
-AWS_S3_BUCKET_NAME=your-s3-bucket
+AWS_ACCESS_KEY_ID=your-aws-iam-user-access-key
+AWS_SECRET_ACCESS_KEY=your-aws-iam-user-secret-access-key
+AWS_S3_BUCKET_NAME=your-aws-s3-bucket
 AWS_REGION=your-aws-region
 USE_S3=TRUE
 
-DOCKER_IMAGE=docker-image-name
+DOCKER_IMAGE=
+sdelowar2/rag-doc-api
 ```
 
 ### 3. Run Locally (Virtual Environment)
@@ -138,10 +139,43 @@ python manage.py collecstatic --noinput
 python manage.py migrate
 python manage.py runserver
 ```
-Application will be available at: [http://localhost:8000](http://localhost:8000) 
+Application will be available at: http://localhost:8000
 
 ### 4. Run with Docker
 ```
 docker-compose up --build
 ```
-Application will be available at: [http://localhost:8000](http://localhost:8000)
+Application will be available at: http://localhost:8000
+
+**docker-compose.yml** orchestrates:
+- **web** → Django + Gunicorn app
+- **redis** → task broker for Celery
+- **celery** → background worker
+
+**Dockerization**
+- `start.sh` ensures migrations, superuser creation and staticfiles collection before starting the app.
+- **Dockerfile** copies code, installs dependencies, and runs `start.sh`.
+
+
+## 🔄 CI/CD Pipeline
+This project includes a **GitHub Actions CI/CD** workflow:
+1. **Tests** – Runs Pytest against a PostgreSQL service
+2. **Docker Build & Push** – Builds image and pushes to Docker Hub
+3. **Deploy to AWS EC2** – Pulls latest image, updates .env, restarts services with docker-compose
+
+*(Workflow file in `.github/workflows/ci-cd.yml`)*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
