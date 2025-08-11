@@ -166,6 +166,26 @@ This project includes a **GitHub Actions CI/CD** workflow:
 *(Workflow file in `.github/workflows/ci-cd.yml`)*
 
 
+## 📚 API Endpoints
+
+| API Endpoint | Use Case | Input | Output |
+|--------------|----------|-------|--------|
+| **POST** `/api/auth/login/` | Authenticate user and retrieve JWT tokens | `{ "email": "string", "password": "string" }` | `{ "refresh": "string", "access": "string" }` |
+| **POST** `/api/auth/refresh/` | Refresh expired access token | `{ "refresh": "string" }` | `{ "access": "string" }` |
+| **POST** `/api/auth/register/` | Register a new user and get authentication tokens | `{ "email": "string", "username": "string", "password": "string" }` | `{ "user": { "id": "uuid", "email": "string", "username": "string", "first_name": "string/null", "last_name": "string/null", "is_active": true, "is_staff": false, "date_joined": "datetime" }, "refresh": "string", "token": "string" }` |
+| **PATCH** `/api/documents/{id}/` | Update a specific document | `{ "file": "string" }` | `{ "id": "uuid", "file": "string", "uploaded_at": "datetime" }` |
+| **DELETE** `/api/documents/{id}/` | Delete a specific document | Path param: `id` | `204 No Content` |
+| **PATCH** `/api/messages/{id}/` | Update a specific message | `{ "content": "string" }` | `{ "id": "uuid", "sender": "user", "content": "string", "timestamp": "datetime" }` |
+| **DELETE** `/api/messages/{id}/` | Delete a specific message | Path param: `id` | `204 No Content` |
+| **GET** `/api/sessions/` | List all chat sessions of the authenticated user | None | `[ { "id": "uuid", "user": "uuid", "title": "string", "created_at": "datetime", "documents": [ { "id": "uuid", "file": "string", "uploaded_at": "datetime" } ], "chat_messages": [ { "id": "uuid", "sender": "user", "content": "string", "timestamp": "datetime" } ] } ]` |
+| **POST** `/api/sessions/` | Create a new chat session | `{ "title": "string" }` | `{ "id": "uuid", "user": "uuid", "title": "string", "created_at": "datetime", "documents": [], "chat_messages": [] }` |
+| **GET** `/api/sessions/{id}/` | Retrieve details of a specific chat session | Path param: `id` | `{ "id": "uuid", "user": "uuid", "title": "string", "created_at": "datetime", "documents": [...], "chat_messages": [...] }` |
+| **PATCH** `/api/sessions/{id}/` | Update a specific chat session | `{ "title": "string" }` | `{ "id": "uuid", "user": "uuid", "title": "string", "created_at": "datetime", "documents": [...], "chat_messages": [...] }` |
+| **DELETE** `/api/sessions/{id}/` | Delete a specific chat session | Path param: `id` | `204 No Content` |
+| **POST** `/api/sessions/{id}/documents/` | Upload a document to a chat session | File upload (multipart/form-data) | Updated session object with documents list |
+| **POST** `/api/sessions/{id}/messages/` | Send a message and get AI response for a session | `{ "content": "string" }` | `{ "ai_response": "string" }` |
+| **GET** `/api/user/me/` | Get current authenticated user's profile | None | `{ "id": "uuid", "email": "string", "username": "string", "first_name": "string/null", "last_name": "string/null", "is_active": true, "is_staff": false, "date_joined": "datetime" }` |
+| **PATCH** `/api/user/me/` | Update current authenticated user's profile (username/email cannot be updated) | `{ "first_name": "string", "last_name": "string" }` | Updated user profile object |
 
 
 
