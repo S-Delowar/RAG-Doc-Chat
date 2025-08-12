@@ -38,7 +38,7 @@ This system enables **natural-language document** interaction powered by:
   - **Direct Tool** – Simple Q&A without retrieval
 
   - **Web Search Tool** – Tavily-powered answers
-
+- 📊 **LangSmith Monitoring** – Track and debug RAG workflows
 - 📡 **Background Processing** – Celery + Redis
 
 - 🧪 **Automated Testing** with Pytest
@@ -214,8 +214,11 @@ Below are some screenshots demonstrating the deployed infrastructure and live te
 ---
 ![Postman API Test](https://github.com/user-attachments/assets/6dcd8fda-af20-4484-b4ce-2fdf1cb49fb8)
 
+### 5. Monitoring and Tracing in LangSmith
+---
+![Monitoring in LangSmith](https://github.com/user-attachments/assets/9724459b-3d8f-4b56-b251-b64dcc1dd617)
 
-
+---
 
 
 
