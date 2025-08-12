@@ -161,6 +161,7 @@ Application will be available at: http://localhost:8000
 
 ## 🔄 CI/CD Pipeline
 This project includes a **GitHub Actions CI/CD** workflow:
+<img src="https://github.com/user-attachments/assets/79dddbeb-f954-4ade-8f13-0703660faec7" alt="ci_cd_flow">
 1. **Tests** – Runs Pytest against a PostgreSQL service
 2. **Docker Build & Push** – Builds image and pushes to Docker Hub
 3. **Deploy to AWS EC2** – Pulls latest image, updates .env, restarts services with docker-compose
@@ -190,7 +191,28 @@ This project includes a **GitHub Actions CI/CD** workflow:
 | **PATCH** `/api/user/me/` | Update current authenticated user's profile (username/email cannot be updated) | `{ "first_name": "string", "last_name": "string" }` | Updated user profile object |
 
 
+<hr style="width:50%; margin:auto; border:1px solid #ccc;">
+<hr style="width:50%; margin:auto; border:1px solid #ccc;">
 
+## Deployment & Infrastructure Snapshots
+
+Below are some screenshots demonstrating the deployed infrastructure and live testing.
+
+### 1. Weaviate Cluster
+---
+![Weaviate Cluster](https://github.com/user-attachments/assets/98b10681-8a8b-4b36-8332-f540050545f7)
+
+### 2. AWS EC2 Instance
+---
+![AWS EC2 Instance](https://github.com/user-attachments/assets/ec5038ea-75d1-480c-be0f-ad63fbdbfcd9)
+
+### 3. Document Uploaded to S3
+---
+![Document Uploaded to S3](https://github.com/user-attachments/assets/2296fe54-e6ad-49d3-9448-df272761e436)
+
+### 4. Postman API Test
+---
+![Postman API Test](https://github.com/user-attachments/assets/6dcd8fda-af20-4484-b4ce-2fdf1cb49fb8)
 
 
 
