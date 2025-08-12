@@ -62,8 +62,10 @@ This system enables **natural-language document** interaction powered by:
 
   
 ## 🏗 Architecture
-(Replace placeholder with your diagram)
-
+<img src="https://github.com/user-attachments/assets/2029f7fc-3621-4ef6-b1a0-a071bbbf5be6" 
+     style="width:80%; height:auto; object-fit:contain;" 
+     alt="Project Architecture">
+     
 **Flow Summary**:
 
 1. **User uploads document** → Stored in AWS S3.
